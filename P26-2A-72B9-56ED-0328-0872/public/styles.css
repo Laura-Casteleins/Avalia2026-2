@@ -1,149 +1,132 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Regra estrita de tipografia: ZERO sombras em textos */
-h1, h2, h3, p, span, label, button, input, textarea, code, strong, a, footer {
-  text-shadow: none !important;
-  filter: none !important;
+/* Reset básico e tipografia */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  background-color: #eef2f6;
-  color: #0f172a;
-  line-height: 1.5;
+    background-color: #f4f6f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.topbar {
-  background: #ffffff;
-  border-bottom: 1px solid #dce4ef;
-  padding: 0.9rem 1.5rem;
+/* Cabeçalho */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.topbar-inner {
-  max-width: 960px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+header h1 {
+    font-size: 1.5rem;
 }
 
-.discord-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  color: #1d4ed8;
-  padding: 0.4rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 700;
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
 }
 
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Área Principal e Cartões */
 main {
-  flex: 1;
-  max-width: 960px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem 1.25rem;
+    flex: 1;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    gap: 1.5rem;
 }
 
-.card {
-  background: #ffffff;
-  border: 1px solid #dce4ef;
-  border-radius: 20px;
-  padding: 1.75rem;
-  margin-bottom: 1.25rem;
-  box-shadow: 0 10px 26px -10px rgba(15, 23, 42, 0.07);
+section {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.pill {
-  display: inline-block;
-  background: #dcfce7;
-  border: 1px solid #bbf7d0;
-  color: #166534;
-  border-radius: 999px;
-  padding: 0.3rem 0.85rem;
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
+section h2 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 1.25rem;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 0.5rem;
 }
 
-h1 {
-  font-size: 1.65rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
+/* Cronómetro */
+#displayTimer {
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: monospace;
+    text-align: center;
+    margin: 1rem 0;
+    color: #2c3e50;
 }
 
-.desc {
-  color: #475569;
-  font-size: 0.95rem;
-  margin-bottom: 1.25rem;
+/* Formulário de Lançamento Manual */
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1rem;
+    align-items: end;
 }
 
-.form-row {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 
-.input-text {
-  flex: 1;
-  min-width: 220px;
-  padding: 0.75rem 1rem;
-  border: 1.5px solid #cbd5e1;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
+select, input[type="number"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
 }
 
-.btn-primary {
-  background: #0f172a;
-  color: #ffffff;
-  border: none;
-  border-radius: 999px;
-  padding: 0.75rem 1.4rem;
-  font-size: 0.92rem;
-  font-weight: 800;
-  cursor: pointer;
+/* Tabela do Painel Analítico */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
 }
 
-.btn-primary:hover {
-  background: #1e293b;
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
 }
 
-.records-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
 }
 
-.records-list li {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 0.85rem 1rem;
-  font-size: 0.9rem;
-}
-
+/* Rodapé */
 footer {
-  text-align: center;
-  padding: 1.25rem;
-  background: #ffffff;
-  border-top: 1px solid #dce4ef;
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: #334155;
+    background-color: #ecf0f1;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+    color: #7f8c8d;
+    margin-top: auto;
 }
