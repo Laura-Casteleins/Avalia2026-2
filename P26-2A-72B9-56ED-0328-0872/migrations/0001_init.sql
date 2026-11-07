@@ -1,18 +1,24 @@
--- Esquema Inicial Cloudflare D1 para P26-2A-72B9-56ED-0328-0872 (Projeto #40)
-CREATE TABLE IF NOT EXISTS discord_users (
-  user_id TEXT PRIMARY KEY,
-  username TEXT NOT NULL,
-  avatar TEXT,
-  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- Tabela para armazenar as estimativas de cada etapa (Módulo)
+CREATE TABLE IF NOT EXISTS estimativas (
+    fase TEXT PRIMARY KEY,
+    horas_estimadas REAL NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS project_records (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id TEXT NOT NULL,
-  username TEXT NOT NULL,
-  chave_projeto TEXT NOT NULL,
-  conteudo TEXT NOT NULL,
-  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- Tabela principal para armazenar os apontamentos de horas (Timesheet)
+CREATE TABLE IF NOT EXISTS apontamentos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    discord_user_id TEXT NOT NULL,
+    discord_user_name TEXT NOT NULL,
+    fase TEXT NOT NULL,
+    horas_gastas REAL NOT NULL,
+    tipo_registro TEXT NOT NULL, -- Pode ser 'manual' ou 'cronometro'
+    data_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (fase) REFERENCES estimativas(fase)
 );
 
-CREATE INDEX IF NOT EXISTS idx_project_records_user ON project_records(user_id);
+-- Inserir os dados de estimativa inicial exigidos pelo projeto (Apenas se a tabela estiver vazia)
+INSERT OR IGNORE INTO estimativas (fase, horas_estimadas) VALUES 
+('Requisitos', 20.0),
+('Arquitetura', 15.0),
+('Codificacao', 40.0),
+('Testes', 25.0);
