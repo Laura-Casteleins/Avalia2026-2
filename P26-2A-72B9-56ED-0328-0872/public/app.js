@@ -108,3 +108,45 @@ function atualizarPainelMock() {
 
 // Inicializa a tabela ao carregar a página
 atualizarPainelMock();
+
+// --- AUTENTICAÇÃO DISCORD ---
+const btnLoginDiscord = document.getElementById('btnLoginDiscord');
+
+if (btnLoginDiscord) {
+    btnLoginDiscord.addEventListener('click', () => {
+        // Redireciona o utilizador para a nossa Cloudflare Function que preparámos
+        window.location.href = '/api/auth/discord';
+    });
+}
+
+// --- VERIFICAÇÃO DE SESSÃO ATIVA ---
+async function verificarSessao() {
+    try {
+        // Pede ao backend (Cloudflare Functions) o status atual do utilizador
+        const resposta = await fetch('/api/auth/status');
+        const dados = await resposta.json();
+
+        // Se o backend confirmar que existe um utilizador logado
+        if (dados.user) {
+            const btnLogin = document.getElementById('btnLoginDiscord');
+            if (btnLogin) {
+                // Substitui o botão de login pelo nome e avatar do utilizador do Discord
+                const avatarUrl = dados.user.avatar 
+                    ? `https://cdn.discordapp.com/avatars/${dados.user.id}/${dados.user.avatar}.png` 
+                    : 'https://cdn.discordapp.com/embed/avatars/0.png'; // Avatar padrão caso não tenha
+
+                btnLogin.outerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px; color: white; font-weight: bold;">
+                        <img src="${avatarUrl}" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                        <span>${dados.user.username}</span>
+                    </div>
+                `;
+            }
+        }
+    } catch (erro) {
+        console.log("Nenhuma sessão ativa encontrada.");
+    }
+}
+
+// Executa a verificação assim que a página carrega
+verificarSessao();
